@@ -1,16 +1,13 @@
 const canvasSize = [700, 500];
 
 let lightSource;
-let numRays = 360;
-let sourceStep;
+let numRays = 500;
 let boundaries = [];
 const numBoundaries = 5;
 
 function setup() {
     noCursor();
     createCanvas(canvasSize[0], canvasSize[1]);
-
-    sourceStep = 1 / 2;
 
     boundaries.push(new Boundary(0, 0, width, 0));
     boundaries.push(new Boundary(width, 0, width, height));

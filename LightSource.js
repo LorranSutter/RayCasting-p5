@@ -3,10 +3,12 @@ class LightSource {
         this.source = createVector(0, 0);
         this.rays = Array(numRays);
 
-        for (let i = 0; i < numRays; i += 360 / numRays) {
-            const x = cos(radians(i));
-            const y = sin(radians(i));
+        let theta= 0;
+        for (let i = 0; i < numRays; i++) {
+            const x = cos(radians(theta));
+            const y = sin(radians(theta));
             this.rays[i] = new Ray(this.source, createVector(x, y));
+            theta += (360 / numRays);
         }
     }
 
