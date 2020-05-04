@@ -27,3 +27,9 @@ function intersection(ray, boundary) {
         return;
     }
 }
+
+// TODO Check it this reflec function works
+function reflect(ray, surfaceNormal) {
+    surfaceNormal.normalize();
+    return ray.sub(surfaceNormal.mult(2 * ray.dot(surfaceNormal)));
+};

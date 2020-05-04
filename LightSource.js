@@ -3,7 +3,7 @@ class LightSource {
         this.source = createVector(0, 0);
         this.rays = Array(numRays);
 
-        let theta= 0;
+        let theta = 0;
         for (let i = 0; i < numRays; i++) {
             const x = cos(radians(theta));
             const y = sin(radians(theta));
@@ -22,28 +22,37 @@ class LightSource {
 
     show(boundaries) {
         for (const ray of this.rays) {
+            this.cast(this.source, ray, boundaries);
+        }
+    }
 
-            ray.setSource(this.source);
+    cast(source, ray, boundaries, end) {
 
-            let closest = null;
-            let minDist = Infinity;
+        if (end) {
+            return;
+        }
 
-            // Verify boundary / ray intersection
-            // Only draw the closest intersection
-            for (const boundary of boundaries) {
-                let p = intersection(ray, boundary);
-                if (p) {
-                    const newDist = p5.Vector.dist(ray.source, p);
-                    if (newDist < minDist) {
-                        minDist = newDist;
-                        closest = p;
-                    }
+        ray.setSource(source);
+
+        let closest = null;
+        let minDist = Infinity;
+
+        // Verify boundary / ray intersection
+        // Only draw the closest intersection
+        for (const boundary of boundaries) {
+            let p = intersection(ray, boundary);
+            if (p) {
+                const newDist = p5.Vector.dist(ray.source, p);
+                if (newDist < minDist) {
+                    minDist = newDist;
+                    closest = p;
                 }
             }
-            if (closest) {
-                ray.show(closest);
-            }
-
+        }
+        if (closest) {
+            ray.show(closest);
+            // TODO call cast recursively
+            // this.cast(ray.source, reflect(ray.source, closest), boundaries, closest);
         }
     }
 }

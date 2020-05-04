@@ -1,7 +1,7 @@
 const canvasSize = [700, 500];
 
 let lightSource;
-let numRays = 500;
+let numRays = 100;
 let boundaries = [];
 const numBoundaries = 5;
 
@@ -29,9 +29,7 @@ function draw() {
 
     background(0);
 
-    for (const boundary of boundaries) {
-        boundary.show();
-    }
+    boundaries.forEach(boundary => boundary.show());
 
     lightSource.setSource(mouseX, mouseY);
     lightSource.show(boundaries);
