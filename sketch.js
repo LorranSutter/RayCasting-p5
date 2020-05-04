@@ -1,14 +1,16 @@
-const canvasSize = 600;
+const canvasSize = [700, 500];
 
+let lightSource;
+let numRays = 360;
 let sourceStep;
 let boundaries = [];
-const numBoundaries = 7;
+const numBoundaries = 5;
 
 function setup() {
     noCursor();
-    createCanvas(canvasSize, canvasSize);
+    createCanvas(canvasSize[0], canvasSize[1]);
 
-    sourceStep = PI / 502;
+    sourceStep = 1 / 2;
 
     boundaries.push(new Boundary(0, 0, width, 0));
     boundaries.push(new Boundary(width, 0, width, height));
@@ -23,6 +25,7 @@ function setup() {
         boundaries.push(new Boundary(x1, y1, x2, y2));
     }
 
+    lightSource = new LightSource(numRays);
 }
 
 function draw() {
@@ -33,31 +36,6 @@ function draw() {
         boundary.show();
     }
 
-    for (let i = 0; i < 2 * PI; i += sourceStep) {
-
-        x = cos(i);
-        y = sin(i);
-
-        let ray = new Ray(createVector(mouseX, mouseY), createVector(x, y));
-
-        let closest = null;
-        let minDist = Infinity;
-
-        // Verify boundary / ray intersection
-        // Only draw the closest intersection
-        for (const boundary of boundaries) {
-            let p = ray.intersection(boundary);
-            if (p) {
-                const newDist = p5.Vector.dist(ray.source, p);
-                if (newDist < minDist) {
-                    minDist = newDist;
-                    closest = p;
-                }
-            }
-        }
-        if (closest) {
-            ray.show(closest);
-        }
-
-    }
+    lightSource.setSource(mouseX, mouseY);
+    lightSource.show(boundaries);
 }
