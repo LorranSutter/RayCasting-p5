@@ -22,37 +22,64 @@ class LightSource {
 
     show(boundaries) {
         for (const ray of this.rays) {
-            this.cast(this.source, ray, boundaries);
+            this.cast(this.source, ray, boundaries, null, 0);
         }
     }
 
-    cast(source, ray, boundaries, end) {
+    cast(source, ray, boundaries, currentBoundary, numReflects) {
 
-        if (end) {
+        if (numReflects === 5) {
             return;
         }
 
         ray.setSource(source);
 
+        let closestBoundary = null
         let closest = null;
         let minDist = Infinity;
 
         // Verify boundary / ray intersection
         // Only draw the closest intersection
         for (const boundary of boundaries) {
+
+            if (boundary === currentBoundary) {
+                continue;
+            }
+
             let p = intersection(ray, boundary);
             if (p) {
                 const newDist = p5.Vector.dist(ray.source, p);
                 if (newDist < minDist) {
                     minDist = newDist;
                     closest = p;
+                    closestBoundary = boundary;
                 }
             }
         }
         if (closest) {
-            ray.show(closest);
-            // TODO call cast recursively
-            // this.cast(ray.source, reflect(ray.source, closest), boundaries, closest);
+            ray.setEndpoint(closest);
+            ray.show();
+            // strokeWeight(10);
+            // point(closest.x, closest.y);
+            // strokeWeight(1);
+
+            // push();
+            // translate(closest.x, closest.y);
+            // drawArrow(closest, closestBoundary.norm.copy().mult(0.3), 'blue');
+            // pop();
+
+            let newDirection = reflect(ray.direction.copy(), closestBoundary.norm.copy());
+            // let cosA = newDirection.copy().normalize().dot(ray.direction.copy().normalize());
+            // console.log(degrees(cosA).toFixed(4));
+            // if(newDirection.copy().normalize().dot(ray.direction.copy().normalize()).toFixed(1)){
+            //     console.log('here');
+            // }
+            // console.log('closest',closest);
+            // console.log(newDirection);
+            // stroke(255);
+            // line(closest[0],closest[1],newDirection[0]*100,newDirection[1]*100);
+            let newRay = new Ray(closest, newDirection, ray.alpha / 3);
+            this.cast(closest, newRay, boundaries, closestBoundary, numReflects + 1);
         }
     }
 }

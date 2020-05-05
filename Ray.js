@@ -1,18 +1,29 @@
 class Ray {
-    constructor(source, direction) {
+    constructor(source, direction, alpha = 255, endpoint = null) {
         this.source = source;
-        this.direction = direction.normalize();
+        this.direction = direction;
+        this.alpha = alpha;
+        this.endpoint = endpoint ?? direction;
     }
 
     setSource(source) {
         this.source = source;
     }
 
-    show(endpoint) {
-        // colorMode(HSB);
-        stroke((1 + frameCount * 2) % 360, 255, 255, 50);
+    setEndpoint(endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    show() {
+        stroke(0, 0, 255, this.alpha);
+        line(this.source.x, this.source.y, this.endpoint.x, this.endpoint.y);
+    }
+
+    show2() {
         stroke(255, 0, 255, 75);
-        // stroke(73, 40, 158, 100);
-        line(this.source.x, this.source.y, endpoint.x, endpoint.y);
+        push();
+        translate(this.source.x, this.source.y);
+        line(0, 0, this.endpoint.x, this.endpoint.y);
+        pop();
     }
 }
