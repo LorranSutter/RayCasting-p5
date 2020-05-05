@@ -1,5 +1,5 @@
 # Raycasting-p5
-Ray casting implementation using p5js inspired by [Daniel Shiffman](https://github.com/shiffman)
+Ray casting with reflections implementation using p5js inspired by [Daniel Shiffman](https://github.com/shiffman)
 
 ---
 
