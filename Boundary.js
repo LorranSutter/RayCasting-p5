@@ -9,12 +9,4 @@ class Boundary {
         stroke(255);
         line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
     }
-
-    show2() {
-        stroke(255);
-        push();
-        translate(this.p1.x, this.p1.y);
-        line(0, 0, this.p2.x, this.p2.y);
-        pop();
-    }
 }
