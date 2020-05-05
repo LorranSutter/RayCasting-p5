@@ -1,16 +1,13 @@
 const canvasSize = [500, 500];
 
 let lightSource;
-let numRays = 300;
+let numRays = 500;
 let boundaries = [];
-const numBoundaries = 5;
+const numBoundaries = 5 ;
 
 function setup() {
     noCursor();
     createCanvas(canvasSize[0], canvasSize[1]);
-
-    // boundaries.push(new Boundary(canvasSize[0]/2+50, 50, canvasSize[0]/2+100, canvasSize[1]-50));
-    // boundaries.push(new Boundary(canvasSize[0]/2-50, 50, canvasSize[0]/2-150, canvasSize[1]-50));
 
     boundaries.push(new Boundary(0, 0, width, 0));
     boundaries.push(new Boundary(width, 0, width, height));
@@ -31,9 +28,21 @@ function setup() {
 function draw() {
 
     background(0);
-    
+
     lightSource.setSource(mouseX, mouseY);
     lightSource.show(boundaries);
 
     boundaries.forEach(boundary => boundary.show());
+}
+
+function keyPressed() {
+    if (keyCode === 32) {
+        lightSource.toggleReflect();
+    }
+}
+
+function mouseClicked() {
+    if (mouseButton === LEFT) {
+        lightSource.toggleReflect();
+    }
 }
