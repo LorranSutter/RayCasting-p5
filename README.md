@@ -29,11 +29,11 @@ In this code, ray casting was implemented and extendend using simple reflection.
 </div>
 
 ## :book: Resources
+- [The Coding Train - 2D Raycasting](https://www.youtube.com/watch?v=TOEi6T2mtHo) - video of 2D raycasting implementation
 - [Reflection](https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/reflection-refraction-fresnel) - understanding reflection
 
-## :book: Resources and technologies :computer:
+## :computer: Technologies
 - [P5js](https://p5js.org/) - drawing library
 
 ## :cookie: Credits
-- [The Coding Train - 2D Raycasting](https://www.youtube.com/watch?v=TOEi6T2mtHo) - video of 2D raycasting implementation
 - [Daniel Shiffman](https://github.com/shiffman) - provider of The Coding Train
